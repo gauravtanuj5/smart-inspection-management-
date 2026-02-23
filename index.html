@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>InspectFlow - Smart Inspection System</title>
+<title>InspectFlow Pro</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -11,139 +11,73 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
 
 body{
-  background:linear-gradient(135deg,#0f172a,#1e293b);
-  color:white;
-  transition:0.4s;
+background:#0f172a;
+color:white;
+transition:0.4s;
 }
 
-.light-mode{
-  background:#f1f5f9;
-  color:#0f172a;
-}
+.light{background:#f1f5f9;color:#0f172a;}
 
 header{
-  position:fixed;
-  width:100%;
-  top:0;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:20px 8%;
-  backdrop-filter:blur(10px);
-  background:rgba(255,255,255,0.05);
-  border-bottom:1px solid rgba(255,255,255,0.1);
-  z-index:1000;
+padding:20px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#1e293b;
 }
 
-header h2{color:#38bdf8;}
-
-nav a{
-  color:#cbd5e1;
-  margin-left:25px;
-  text-decoration:none;
-  transition:0.3s;
-}
-nav a:hover{color:#38bdf8;}
-
-.toggle-btn{
-  background:#38bdf8;
-  border:none;
-  padding:8px 15px;
-  border-radius:20px;
-  cursor:pointer;
-  font-weight:600;
+button{
+cursor:pointer;
+padding:8px 15px;
+border:none;
+border-radius:5px;
 }
 
-section{padding:120px 8% 80px;}
+.primary{background:#3b82f6;color:white;}
+.danger{background:#ef4444;color:white;}
 
-.hero h1{
-  font-size:45px;
-  margin-bottom:20px;
-  background:linear-gradient(to right,#38bdf8,#06b6d4);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+section{padding:40px 8%;}
+
+input,select{
+width:100%;
+padding:8px;
+margin:8px 0;
+border-radius:5px;
+border:none;
 }
 
-.btn{
-  padding:12px 25px;
-  border-radius:30px;
-  border:none;
-  cursor:pointer;
-  margin-top:10px;
-  font-weight:600;
-  transition:0.3s;
-}
-.primary{background:#38bdf8;color:white;}
-.primary:hover{transform:translateY(-3px);}
-
-.features{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:25px;
-  margin-top:40px;
+.table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
 }
 
-.card{
-  background:rgba(255,255,255,0.05);
-  padding:25px;
-  border-radius:15px;
-  backdrop-filter:blur(12px);
-  transition:0.4s;
-}
-.card:hover{transform:translateY(-8px);}
-
-.form-section{
-  max-width:600px;
-  margin:auto;
-  background:rgba(255,255,255,0.05);
-  padding:30px;
-  border-radius:20px;
+.table th,.table td{
+padding:10px;
+border-bottom:1px solid gray;
+text-align:left;
 }
 
-form input,form select{
-  width:100%;
-  padding:10px;
-  margin:10px 0;
-  border-radius:8px;
-  border:none;
-  outline:none;
+.badge{
+padding:4px 8px;
+border-radius:4px;
+font-size:12px;
 }
 
-.checklist-item{
-  display:flex;
-  gap:10px;
-  margin-bottom:10px;
-}
+.completed{background:#22c55e;}
+.pending{background:#eab308;}
+.failed{background:#ef4444;}
 
 .stats{
-  display:flex;
-  justify-content:center;
-  gap:40px;
-  flex-wrap:wrap;
+display:flex;
+gap:20px;
+flex-wrap:wrap;
 }
 
-.stat h2{font-size:40px;color:#38bdf8;}
-
-.preview-img{
-  width:80px;
-  margin:5px;
-  border-radius:8px;
-}
-
-.toast{
-  position:fixed;
-  bottom:30px;
-  right:30px;
-  background:#22c55e;
-  padding:15px 25px;
-  border-radius:10px;
-  display:none;
-}
-
-footer{
-  text-align:center;
-  padding:20px;
-  margin-top:40px;
+.stat-box{
+background:#1e293b;
+padding:15px;
+border-radius:10px;
 }
 </style>
 </head>
@@ -151,122 +85,130 @@ footer{
 <body>
 
 <header>
-  <h2>InspectFlow</h2>
-  <nav>
-    <a href="#features">Features</a>
-    <a href="#create">Create</a>
-    <a href="#stats">Stats</a>
-  </nav>
-  <button class="toggle-btn" onclick="toggleMode()">Toggle Mode</button>
+<h2>InspectFlow Pro</h2>
+<button onclick="toggleMode()">Toggle Mode</button>
 </header>
 
-<section class="hero">
-  <h1>Smart Inspection Management</h1>
-  <p>Advanced digital inspection with automation & real-time tracking.</p>
+<section>
+<h3>Create Inspection</h3>
+<form id="form">
+<input type="text" id="title" placeholder="Inspection Title" required>
+<input type="text" id="location" placeholder="Location" required>
+<input type="text" id="inspector" placeholder="Inspector Name" required>
+<input type="date" id="date" required>
+
+<select id="status" required>
+<option value="">Select Status</option>
+<option value="Completed">Completed</option>
+<option value="Pending">Pending</option>
+<option value="Failed">Failed</option>
+</select>
+
+<button class="primary" type="submit">Add Inspection</button>
+</form>
 </section>
 
-<section id="features">
-  <h2>Features</h2>
-  <div class="features">
-    <div class="card">Digital Checklists</div>
-    <div class="card">Image Upload & Preview</div>
-    <div class="card">Live Status Counter</div>
-    <div class="card">Local Data Save</div>
-  </div>
+<section>
+<h3>Search Inspection</h3>
+<input type="text" id="search" placeholder="Search by Title..." onkeyup="renderTable()">
 </section>
 
-<section id="create">
-  <h2>Create Inspection</h2>
-  <div class="form-section">
-    <form id="inspectionForm">
-      <input type="text" placeholder="Inspection Title" required>
-      <input type="text" placeholder="Location" required>
-      <input type="text" placeholder="Inspector Name" required>
-      <input type="date" required>
-
-      <select id="status" required>
-        <option value="">Select Status</option>
-        <option value="Pending">Pending</option>
-        <option value="Completed">Completed</option>
-        <option value="Failed">Failed</option>
-      </select>
-
-      <h4>Checklist</h4>
-      <div id="checklist"></div>
-      <button type="button" class="btn primary" onclick="addChecklist()">Add Item</button>
-
-      <input type="file" id="images" multiple>
-      <div id="preview"></div>
-
-      <button class="btn primary" type="submit">Submit</button>
-    </form>
-  </div>
+<section>
+<h3>Statistics</h3>
+<div class="stats">
+<div class="stat-box">Total: <span id="total">0</span></div>
+<div class="stat-box">Completed: <span id="completed">0</span></div>
+<div class="stat-box">Pending: <span id="pending">0</span></div>
+<div class="stat-box">Failed: <span id="failed">0</span></div>
+</div>
 </section>
 
-<section id="stats">
-  <h2>Statistics</h2>
-  <div class="stats">
-    <div class="stat"><h2 id="total">0</h2><p>Total</p></div>
-    <div class="stat"><h2 id="completed">0</h2><p>Completed</p></div>
-    <div class="stat"><h2 id="pending">0</h2><p>Pending</p></div>
-    <div class="stat"><h2 id="failed">0</h2><p>Failed</p></div>
-  </div>
+<section>
+<h3>Inspection List</h3>
+<table class="table">
+<thead>
+<tr>
+<th>Title</th>
+<th>Location</th>
+<th>Inspector</th>
+<th>Date</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="tableBody"></tbody>
+</table>
 </section>
-
-<div class="toast" id="toast">Inspection Submitted Successfully!</div>
-
-<footer>© 2026 InspectFlow</footer>
 
 <script>
+
+let inspections = JSON.parse(localStorage.getItem("inspections")) || [];
+
+// Toggle Mode
 function toggleMode(){
-  document.body.classList.toggle("light-mode");
+document.body.classList.toggle("light");
 }
 
-function addChecklist(){
-  const div=document.createElement("div");
-  div.className="checklist-item";
-  div.innerHTML=`<input type="text" placeholder="Checklist item" required>
-                 <button onclick="this.parentElement.remove()">❌</button>`;
-  document.getElementById("checklist").appendChild(div);
-}
+// Form Submit
+document.getElementById("form").addEventListener("submit",function(e){
+e.preventDefault();
 
-document.getElementById("images").addEventListener("change",function(){
-  const preview=document.getElementById("preview");
-  preview.innerHTML="";
-  Array.from(this.files).forEach(file=>{
-    const reader=new FileReader();
-    reader.onload=e=>{
-      const img=document.createElement("img");
-      img.src=e.target.result;
-      img.className="preview-img";
-      preview.appendChild(img);
-    };
-    reader.readAsDataURL(file);
-  });
+let data={
+title:title.value,
+location:location.value,
+inspector:inspector.value,
+date:date.value,
+status:status.value
+};
+
+inspections.push(data);
+localStorage.setItem("inspections",JSON.stringify(inspections));
+this.reset();
+renderTable();
+updateStats();
 });
 
-let data=JSON.parse(localStorage.getItem("inspections"))||[];
+// Render Table
+function renderTable(){
+let search=document.getElementById("search").value.toLowerCase();
+let tbody=document.getElementById("tableBody");
+tbody.innerHTML="";
 
-function updateStats(){
-  document.getElementById("total").innerText=data.length;
-  document.getElementById("completed").innerText=data.filter(i=>i=="Completed").length;
-  document.getElementById("pending").innerText=data.filter(i=>i=="Pending").length;
-  document.getElementById("failed").innerText=data.filter(i=>i=="Failed").length;
+inspections.filter(i=>i.title.toLowerCase().includes(search))
+.forEach((item,index)=>{
+let badgeClass=item.status.toLowerCase();
+tbody.innerHTML+=`
+<tr>
+<td>${item.title}</td>
+<td>${item.location}</td>
+<td>${item.inspector}</td>
+<td>${item.date}</td>
+<td><span class="badge ${badgeClass}">${item.status}</span></td>
+<td><button class="danger" onclick="deleteItem(${index})">Delete</button></td>
+</tr>
+`;
+});
 }
 
+// Delete Function
+function deleteItem(index){
+inspections.splice(index,1);
+localStorage.setItem("inspections",JSON.stringify(inspections));
+renderTable();
+updateStats();
+}
+
+// Update Stats
+function updateStats(){
+total.innerText=inspections.length;
+completed.innerText=inspections.filter(i=>i.status=="Completed").length;
+pending.innerText=inspections.filter(i=>i.status=="Pending").length;
+failed.innerText=inspections.filter(i=>i.status=="Failed").length;
+}
+
+renderTable();
 updateStats();
 
-document.getElementById("inspectionForm").addEventListener("submit",function(e){
-  e.preventDefault();
-  const status=document.getElementById("status").value;
-  data.push(status);
-  localStorage.setItem("inspections",JSON.stringify(data));
-  updateStats();
-  document.getElementById("toast").style.display="block";
-  setTimeout(()=>document.getElementById("toast").style.display="none",2000);
-  this.reset();
-  document.getElementById("preview").innerHTML="";
-});
 </script>
 
 </body>
