@@ -1,215 +1,219 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>InspectFlow Pro</title>
-
+<title>InspectFlow Pro - Inspection & Maintenance</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
+/* ⚡ RESET & BASE */
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{background:#0f172a;color:white;transition:0.4s;}
+.light-mode{background:#f1f5f9;color:#0f172a;}
 
-body{
-background:#0f172a;
-color:white;
-transition:0.4s;
-}
+a{color:inherit;text-decoration:none;}
+section{padding:80px 8%;}
 
-.light{background:#f1f5f9;color:#0f172a;}
-
+/* ===== HEADER ===== */
 header{
-padding:20px 8%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:#1e293b;
+  position:fixed;top:0;left:0;right:0;
+  background:rgba(0,0,0,0.6);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:15px 8%;z-index:1000;
 }
+header h2{font-size:26px;color:#38bdf8;}
+nav a{margin-left:20px;font-weight:600;cursor:pointer;}
+.toggle-btn{padding:8px 14px;background:#38bdf8;border-radius:6px;color:white;}
 
-button{
-cursor:pointer;
-padding:8px 15px;
-border:none;
-border-radius:5px;
+/* ===== HERO ===== */
+.hero{
+  height:100vh;display:flex;flex-direction:column;
+  justify-content:center;align-items:flex-start;
 }
+.hero h1{font-size:48px;background:linear-gradient(to right,#38bdf8,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{margin-top:10px;font-size:18px;color:#94a3b8;max-width:600px;}
 
-.primary{background:#3b82f6;color:white;}
-.danger{background:#ef4444;color:white;}
+/* ===== FEATURES ===== */
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;margin-top:40px;}
+.feature-box{background:rgba(255,255,255,0.05);padding:25px;border-radius:12px;transition:0.3s;}
+.feature-box:hover{transform:translateY(-8px);}
 
-section{padding:40px 8%;}
+/* ===== HOW IT WORKS ===== */
+.steps{display:flex;flex-wrap:wrap;gap:20px;margin-top:30px;}
+.steps .step{background:#1e293b;padding:20px;border-radius:12px;flex:1 1 200px;text-align:center;}
 
-input,select{
-width:100%;
-padding:8px;
-margin:8px 0;
-border-radius:5px;
-border:none;
-}
+/* ===== INSPECTION FORM ===== */
+.form-section{max-width:600px;margin:auto;background:rgba(255,255,255,0.05);padding:30px;border-radius:15px;}
+input,select{width:100%;padding:10px;margin:12px 0;border-radius:6px;border:none;outline:none;}
 
-.table{
-width:100%;
-border-collapse:collapse;
-margin-top:20px;
-}
+/* ===== STATS ===== */
+.stats{display:flex;gap:30px;flex-wrap:wrap;justify-content:center;}
+.stat-box{background:#1e293b;padding:20px;border-radius:10px;text-align:center;}
 
-.table th,.table td{
-padding:10px;
-border-bottom:1px solid gray;
-text-align:left;
-}
-
-.badge{
-padding:4px 8px;
-border-radius:4px;
-font-size:12px;
-}
-
+/* ===== TABLE ===== */
+.table{width:100%;border-collapse:collapse;margin-top:40px;}
+.table th,.table td{padding:12px;border-bottom:1px solid #3a3f4b;}
+.badge{padding:4px 8px;border-radius:4px;font-size:13px;}
 .completed{background:#22c55e;}
 .pending{background:#eab308;}
 .failed{background:#ef4444;}
 
-.stats{
-display:flex;
-gap:20px;
-flex-wrap:wrap;
-}
-
-.stat-box{
-background:#1e293b;
-padding:15px;
-border-radius:10px;
-}
+/* ===== FOOTER ===== */
+footer{padding:25px 8%;text-align:center;color:#94a3b8;}
 </style>
 </head>
-
 <body>
 
+<!-- ===== HEADER ===== -->
 <header>
-<h2>InspectFlow Pro</h2>
-<button onclick="toggleMode()">Toggle Mode</button>
+  <h2>InspectFlow Pro</h2>
+  <nav>
+    <a onclick="scrollTo('features')">Features</a>
+    <a onclick="scrollTo('how-it-works')">How It Works</a>
+    <a onclick="scrollTo('create')">Create</a>
+    <a onclick="scrollTo('stats')">Stats</a>
+  </nav>
+  <button class="toggle-btn" onclick="toggleDark()">Dark/Light</button>
 </header>
 
-<section>
-<h3>Create Inspection</h3>
-<form id="form">
-<input type="text" id="title" placeholder="Inspection Title" required>
-<input type="text" id="location" placeholder="Location" required>
-<input type="text" id="inspector" placeholder="Inspector Name" required>
-<input type="date" id="date" required>
-
-<select id="status" required>
-<option value="">Select Status</option>
-<option value="Completed">Completed</option>
-<option value="Pending">Pending</option>
-<option value="Failed">Failed</option>
-</select>
-
-<button class="primary" type="submit">Add Inspection</button>
-</form>
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <h1>Complete Inspection & Maintenance Management</h1>
+  <p>Manage inspections, automate reporting, track real-time status, generate analytics & digital workflows — just like professional CMMS platforms. :contentReference[oaicite:3]{index=3}</p>
 </section>
 
-<section>
-<h3>Search Inspection</h3>
-<input type="text" id="search" placeholder="Search by Title..." onkeyup="renderTable()">
+<!-- ===== FEATURES ===== -->
+<section id="features">
+  <h2>Key Features</h2>
+  <div class="features">
+    <div class="feature-box">Digital Inspection Checklists</div>
+    <div class="feature-box">Real-Time Status Tracking</div>
+    <div class="feature-box">Automated Reporting</div>
+    <div class="feature-box">Mobile & Offline Support</div>
+  </div>
 </section>
 
-<section>
-<h3>Statistics</h3>
-<div class="stats">
-<div class="stat-box">Total: <span id="total">0</span></div>
-<div class="stat-box">Completed: <span id="completed">0</span></div>
-<div class="stat-box">Pending: <span id="pending">0</span></div>
-<div class="stat-box">Failed: <span id="failed">0</span></div>
-</div>
+<!-- ===== HOW IT WORKS ===== -->
+<section id="how-it-works">
+  <h2>How It Works</h2>
+  <div class="steps">
+    <div class="step">1. Create Inspection</div>
+    <div class="step">2. Add Photos & Notes</div>
+    <div class="step">3. Save & Track Status</div>
+    <div class="step">4. View Stats & Reports</div>
+  </div>
 </section>
 
-<section>
-<h3>Inspection List</h3>
-<table class="table">
-<thead>
-<tr>
-<th>Title</th>
-<th>Location</th>
-<th>Inspector</th>
-<th>Date</th>
-<th>Status</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody id="tableBody"></tbody>
-</table>
+<!-- ===== INSPECTION FORM ===== -->
+<section id="create">
+  <h2>Create Inspection</h2>
+  <div class="form-section">
+    <form id="form">
+      <input type="text" id="title" placeholder="Inspection Title" required>
+      <input type="text" id="location" placeholder="Location" required>
+      <input type="text" id="inspector" placeholder="Inspector" required>
+      <input type="date" id="date" required>
+      <select id="status" required>
+        <option value="">Select Status</option>
+        <option value="Completed">Completed</option>
+        <option value="Pending">Pending</option>
+        <option value="Failed">Failed</option>
+      </select>
+      <button class="primary" type="submit">Add Inspection</button>
+    </form>
+  </div>
 </section>
+
+<!-- ===== STATS ===== -->
+<section id="stats">
+  <h2>Live Statistics</h2>
+  <div class="stats">
+    <div class="stat-box">Total: <span id="total">0</span></div>
+    <div class="stat-box">Completed: <span id="completed">0</span></div>
+    <div class="stat-box">Pending: <span id="pending">0</span></div>
+    <div class="stat-box">Failed: <span id="failed">0</span></div>
+  </div>
+</section>
+
+<!-- ===== INSPECTION TABLE ===== -->
+<section>
+  <h2>Inspection Records</h2>
+  <table class="table">
+    <thead>
+      <tr><th>Title</th><th>Location</th><th>Inspector</th><th>Date</th><th>Status</th><th>Action</th></tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>© 2026 InspectFlow Pro — Built with reference from Oxmaint features. :contentReference[oaicite:4]{index=4}</footer>
 
 <script>
-
-let inspections = JSON.parse(localStorage.getItem("inspections")) || [];
-
-// Toggle Mode
-function toggleMode(){
-document.body.classList.toggle("light");
+// 🔹 DARK / LIGHT MODE
+function toggleDark(){
+  document.body.classList.toggle("light-mode");
 }
 
-// Form Submit
-document.getElementById("form").addEventListener("submit",function(e){
-e.preventDefault();
+// 🔹 LOCAL STORAGE + DATA
+let inspections = JSON.parse(localStorage.getItem("inspectData")) || [];
 
-let data={
-title:title.value,
-location:location.value,
-inspector:inspector.value,
-date:date.value,
-status:status.value
-};
-
-inspections.push(data);
-localStorage.setItem("inspections",JSON.stringify(inspections));
-this.reset();
-renderTable();
-updateStats();
+// 🔹 FORM SUBMIT
+document.getElementById("form").addEventListener("submit", function(e){
+  e.preventDefault();
+  inspections.push({
+    title: title.value,
+    location: location.value,
+    inspector: inspector.value,
+    date: date.value,
+    status: status.value
+  });
+  localStorage.setItem("inspectData", JSON.stringify(inspections));
+  renderTable();
+  updateStats();
+  this.reset();
 });
 
-// Render Table
+// 🔹 TABLE RENDER
 function renderTable(){
-let search=document.getElementById("search").value.toLowerCase();
-let tbody=document.getElementById("tableBody");
-tbody.innerHTML="";
-
-inspections.filter(i=>i.title.toLowerCase().includes(search))
-.forEach((item,index)=>{
-let badgeClass=item.status.toLowerCase();
-tbody.innerHTML+=`
-<tr>
-<td>${item.title}</td>
-<td>${item.location}</td>
-<td>${item.inspector}</td>
-<td>${item.date}</td>
-<td><span class="badge ${badgeClass}">${item.status}</span></td>
-<td><button class="danger" onclick="deleteItem(${index})">Delete</button></td>
-</tr>
-`;
-});
+  let tbody = document.getElementById("tableBody");
+  tbody.innerHTML = "";
+  inspections.forEach((i, idx) => {
+    tbody.innerHTML += `
+    <tr>
+      <td>${i.title}</td><td>${i.location}</td>
+      <td>${i.inspector}</td><td>${i.date}</td>
+      <td><span class="badge ${i.status.toLowerCase()}">${i.status}</span></td>
+      <td><button onclick="deleteRow(${idx})">Delete</button></td>
+    </tr>`;
+  });
 }
 
-// Delete Function
-function deleteItem(index){
-inspections.splice(index,1);
-localStorage.setItem("inspections",JSON.stringify(inspections));
-renderTable();
-updateStats();
+// 🔹 DELETE ROW
+function deleteRow(idx){
+  inspections.splice(idx,1);
+  localStorage.setItem("inspectData", JSON.stringify(inspections));
+  renderTable();
+  updateStats();
 }
 
-// Update Stats
+// 🔹 UPDATE STATS
 function updateStats(){
-total.innerText=inspections.length;
-completed.innerText=inspections.filter(i=>i.status=="Completed").length;
-pending.innerText=inspections.filter(i=>i.status=="Pending").length;
-failed.innerText=inspections.filter(i=>i.status=="Failed").length;
+  total.innerText = inspections.length;
+  completed.innerText = inspections.filter(i=>i.status=="Completed").length;
+  pending.innerText = inspections.filter(i=>i.status=="Pending").length;
+  failed.innerText = inspections.filter(i=>i.status=="Failed").length;
 }
 
+// INITIAL LOAD
 renderTable();
 updateStats();
 
+// SCROLL HELPER
+function scrollTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
 </script>
 
 </body>
 </html>
+
